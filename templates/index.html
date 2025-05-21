@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Meu WMS - Início</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <header>
+        <h1>Bem-vindo ao Meu WMS!</h1>
+    </header>
+    <main>
+        <p>Este é o sistema de gerenciamento de armazém em construção.</p>
+        <p>Status da Conexão com o Banco de Dados: <strong>{{ db_status }}</strong></p>
+        <p>Estamos prontos para organizar seu estoque!</p>
+    </main>
+    <footer>
+        <p>&copy; 2024 Meu WMS</p>
+    </footer>
+    <script src="{{ url_for('static', filename='js/scripts.js') }}"></script>
+</body>
+</html>
