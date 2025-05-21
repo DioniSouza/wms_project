@@ -33,7 +33,7 @@ Class Produto:
             self.id = cursor.fetchone()[0] # Pega o ID gerado pelo banco
             conn.commit() # Confirma amudança no banco(como "salvar de verdade")
             print(f"Produto '{self.nome}' salvo com sucesso" ID: {self.id}")
-                  return True
+            return True
         except Exception as e:
             conn.rollback()# Se der erro, desfaz a operação
             print(f"Erro ao salvar produto: {e}")
