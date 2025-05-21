@@ -194,4 +194,4 @@ Este projeto é distribuído sob a licença MIT License.
 
 📧 Contato
 Se tiver alguma dúvida, entre em contato:
-Dioni Souza - 
+Dioni Souza - [GitHub](https://github.com/DioniSouza)  -  [LinkedIn](https://www.linkedin.com/in/dioni-souza/)
