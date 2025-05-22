@@ -1,0 +1,70 @@
+{% extends "base.html" %}
+
+{% block title %}Adicionar Novo Item ao Estoque{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+    <h2>Adicionar Novo Item ao Estoque</h2>
+
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            {% for category, message in messages %}
+            <div class="alert alert-{{ category }} alert-dismissible fade show" role="alert">
+                {{ message }}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+            {% endfor %}
+        {% endif %}
+    {% endwith %}
+
+    <form method="POST" action="{{ url_for('adicionar_item_estoque') }}">
+        <div class="mb-3">
+            <label for="produto_id" class="form-label">Produto:</label>
+            <select class="form-select" id="produto_id" name="produto_id" required>
+                <option value="">Selecione um Produto</option>
+                {% for produto in produtos %}
+                <option value="{{ produto.id }}" {% if produto.id == produto_id|int %}selected{% endif %}>
+                    {{ produto.nome }} (SKU: {{ produto.sku }})
+                </option>
+                {% endfor %}
+            </select>
+            {% if not produtos %}
+            <small class="form-text text-muted">Nenhum produto cadastrado. <a href="{{ url_for('adicionar_produto') }}">Adicione um produto primeiro.</a></small>
+            {% endif %}
+        </div>
+
+        <div class="mb-3">
+            <label for="endereco_id" class="form-label">Endereço:</label>
+            <select class="form-select" id="endereco_id" name="endereco_id" required>
+                <option value="">Selecione um Endereço</option>
+                {% for endereco in enderecos %}
+                <option value="{{ endereco.id }}" {% if endereco.id == endereco_id|int %}selected{% endif %}>
+                    {{ endereco.corredor }}-{{ endereco.prateleira }}{% if endereco.nivel %}-{{ endereco.nivel }}{% endif %}{% if endereco.posicao %}-{{ endereco.posicao }}{% endif %}
+                </option>
+                {% endfor %}
+            </select>
+            {% if not enderecos %}
+            <small class="form-text text-muted">Nenhum endereço cadastrado. <a href="{{ url_for('adicionar_endereco') }}">Adicione um endereço primeiro.</a></small>
+            {% endif %}
+        </div>
+
+        <div class="mb-3">
+            <label for="lote" class="form-label">Lote:</label>
+            <input type="text" class="form-control" id="lote" name="lote" value="{{ lote if lote else '' }}" required>
+        </div>
+
+        <div class="mb-3">
+            <label for="quantidade" class="form-label">Quantidade:</label>
+            <input type="number" class="form-control" id="quantidade" name="quantidade" value="{{ quantidade if quantidade else '' }}" min="1" required>
+        </div>
+
+        <div class="mb-3">
+            <label for="data_validade" class="form-label">Data de Validade (AAAA-MM-DD - Opcional):</label>
+            <input type="date" class="form-control" id="data_validade" name="data_validade" value="{{ data_validade if data_validade else '' }}">
+        </div>
+
+        <button type="submit" class="btn btn-primary">Salvar Item de Estoque</button>
+        <a href="{{ url_for('listar_itens_estoque') }}" class="btn btn-secondary">Cancelar</a>
+    </form>
+</div>
+{% endblock %}

@@ -13,11 +13,13 @@ libinput_gestures_qt==0.3
 MarkupSafe==2.1.5
 nftables==0.1
 packaging==25.0
+psycopg2-binary==2.9.10
 pycairo==1.28.0
 pycparser==2.22
 PyGObject==3.52.3
 PyQt5==5.15.11
 PyQt5_sip==12.17.0
+python-dotenv==1.1.0
 QTermWidget==2.2.0
 smbus==1.1
 TBB==0.2

@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+
+{% block title %}Adicionar Novo Endereço{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+    <h2>Adicionar Novo Endereço</h2>
+
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            {% for category, message in messages %}
+            <div class="alert alert-{{ category }} alert-dismissible fade show" role="alert">
+                {{ message }}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+            {% endfor %}
+        {% endif %}
+    {% endwith %}
+
+    <form method="POST" action="{{ url_for('adicionar_endereco') }}">
+        <div class="mb-3">
+            <label for="corredor" class="form-label">Corredor:</label>
+            <input type="text" class="form-control" id="corredor" name="corredor" value="{{ corredor if corredor else '' }}" required>
+        </div>
+        <div class="mb-3">
+            <label for="prateleira" class="form-label">Prateleira:</label>
+            <input type="text" class="form-control" id="prateleira" name="prateleira" value="{{ prateleira if prateleira else '' }}" required>
+        </div>
+        <div class="mb-3">
+            <label for="nivel" class="form-label">Nível (Opcional):</label>
+            <input type="text" class="form-control" id="nivel" name="nivel" value="{{ nivel if nivel else '' }}">
+        </div>
+        <div class="mb-3">
+            <label for="posicao" class="form-label">Posição (Opcional):</label>
+            <input type="text" class="form-control" id="posicao" name="posicao" value="{{ posicao if posicao else '' }}">
+        </div>
+        <button type="submit" class="btn btn-primary">Salvar Endereço</button>
+        <a href="{{ url_for('listar_enderecos') }}" class="btn btn-secondary">Cancelar</a>
+    </form>
+</div>
+{% endblock %}

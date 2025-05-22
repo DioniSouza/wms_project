@@ -326,6 +326,31 @@ class ItemEstoque:
         finally:
             cursor.close()
             conn.close()
+            
+    @staticmethod
+    def get_by_id(item_id):
+        conn = get_db_connection()
+        if conn is None: return None
+        cursor = conn.cursor()
+        try:
+            cursor.execute(
+                """
+                SELECT id, produto_id, endereco_id, lote, quantidade, data_validade
+                FROM itens_estoque WHERE id = %s;
+                """,
+                (item_id,)
+            )
+            row = cursor.fetchone()
+            if row:
+                return ItemEstoque(id=row[0], produto_id=row[1], endereco_id=row[2],
+                                   lote=row[3], quantidade=row[4], data_validade=row[5])
+            return None
+        except Exception as e:
+            print(f"Erro ao buscar item de estoque por ID: {e}")
+            return None
+        finally:
+            cursor.close()
+            conn.close()
 
     @staticmethod
     def get_all():
@@ -484,6 +509,23 @@ class Movimentacao:
         except Exception as e:
             print(f"Erro ao buscar movimentações: {e}")
             return []
+        finally:
+            cursor.close()
+            conn.close()
+@staticmethod
+def get_by_id(movimentacao_id):
+        conn = get_db_connection()
+        if conn is None: return None
+        cursor = conn.cursor()
+        try:
+            cursor.execute("SELECT id, item_estoque_id, tipo_movimentacao, quantidade, data_movimentacao FROM movimentacoes WHERE id = %s;", (movimentacao_id,))
+            row = cursor.fetchone()
+            if row:
+                return Movimentacao(id=row[0], item_estoque_id=row[1], tipo_movimentacao=row[2], quantidade=row[3], data_movimentacao=row[4])
+            return None
+        except Exception as e:
+            print(f"Erro ao buscar movimentação por ID: {e}")
+            return None
         finally:
             cursor.close()
             conn.close()

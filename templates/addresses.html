@@ -1,0 +1,58 @@
+{% extends "base.html" %}
+
+{% block title %}Gerenciar Endereços{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+    <h2>Gerenciar Endereços</h2>
+
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            {% for category, message in messages %}
+            <div class="alert alert-{{ category }} alert-dismissible fade show" role="alert">
+                {{ message }}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+            {% endfor %}
+        {% endif %}
+    {% endwith %}
+
+    <p>
+        <a href="{{ url_for('adicionar_endereco') }}" class="btn btn-success">Adicionar Novo Endereço</a>
+    </p>
+
+    {% if enderecos %}
+    <table class="table table-striped table-bordered">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Corredor</th>
+                <th>Prateleira</th>
+                <th>Nível</th>
+                <th>Posição</th>
+                <th>Ações</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for endereco in enderecos %}
+            <tr>
+                <td>{{ endereco.id }}</td>
+                <td>{{ endereco.corredor }}</td>
+                <td>{{ endereco.prateleira }}</td>
+                <td>{{ endereco.nivel if endereco.nivel else '-' }}</td>
+                <td>{{ endereco.posicao if endereco.posicao else '-' }}</td>
+                <td>
+                    <a href="#" class="btn btn-sm btn-info">Editar</a>
+                    <a href="#" class="btn btn-sm btn-danger">Excluir</a>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    {% else %}
+    <div class="alert alert-info" role="alert">
+        Nenhum endereço cadastrado ainda.
+    </div>
+    {% endif %}
+</div>
+{% endblock %}

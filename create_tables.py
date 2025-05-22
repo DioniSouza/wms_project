@@ -15,14 +15,14 @@ def create_tables():
     # 'VARCHAR(255)' é um texto com no máximo 255 letras/números.
     # 'UNIQUE NOT NULL' significa que o SKU não pode ser repetido e não pode ficar vazio.
     sql_produtos = """
-    CREATE TABLE IF NOT EXISTS produtos (
-        id SERIAL PRIMARY KEY,
-        nome VARCHAR(255) NOT NULL,
-        sku VARCHAR(50) UNIQUE NOT NULL,
-        unidade_medida VARCHAR(20)
-        codigo_barras VARCHAR(50) UNIQUE
-    );
-    """
+CREATE TABLE IF NOT EXISTS produtos (
+    id SERIAL PRIMARY KEY,
+    nome VARCHAR(255) NOT NULL,
+    sku VARCHAR(50) UNIQUE NOT NULL,
+    unidade_medida VARCHAR(20),
+    codigo_barras VARCHAR(255) UNIQUE NOT NULL
+);
+"""
 
     # Comando SQL para criar a tabela 'enderecos'
     sql_enderecos = """

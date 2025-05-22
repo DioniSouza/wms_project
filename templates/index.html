@@ -1,23 +1,26 @@
-<!DOCTYPE html>
-<html lang="pt-BR">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Meu WMS - Início</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
-</head>
-<body>
-    <header>
-        <h1>Bem-vindo ao Meu WMS!</h1>
-    </header>
-    <main>
-        <p>Este é o sistema de gerenciamento de armazém em construção.</p>
-        <p>Status da Conexão com o Banco de Dados: <strong>{{ db_status }}</strong></p>
-        <p>Estamos prontos para organizar seu estoque!</p>
-    </main>
-    <footer>
-        <p>&copy; 2024 Meu WMS</p>
-    </footer>
-    <script src="{{ url_for('static', filename='js/scripts.js') }}"></script>
-</body>
-</html>
+{% extends "base.html" %}
+
+{% block title %}Bem-vindo ao WMS Project!{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+    <h1>Bem-vindo ao WMS Project!</h1>
+
+    <div class="alert alert-info" role="alert">
+        {{ db_status }}
+    </div>
+
+    <p>Este é o ponto de partida do seu sistema de gerenciamento de armazém.</p>
+
+    <div class="list-group">
+    <a href="{{ url_for('listar_produtos') }}" class="list-group-item list-group-item-action">Gerenciar Produtos</a>
+    <a href="{{ url_for('adicionar_produto') }}" class="list-group-item list-group-item-action">Adicionar Produto</a>
+    <a href="{{ url_for('listar_enderecos') }}" class="list-group-item list-group-item-action">Gerenciar Endereços</a>
+    <a href="{{ url_for('adicionar_endereco') }}" class="list-group-item list-group-item-action">Adicionar Endereço</a>
+    <a href="{{ url_for('listar_itens_estoque') }}" class="list-group-item list-group-item-action">Gerenciar Estoque</a>
+    <a href="{{ url_for('adicionar_item_estoque') }}" class="list-group-item list-group-item-action">Adicionar Item ao Estoque</a>
+    <a href="{{ url_for('listar_movimentacoes') }}" class="list-group-item list-group-item-action">Histórico de Movimentações</a>
+    <a href="{{ url_for('adicionar_movimentacao') }}" class="list-group-item list-group-item-action">Registrar Movimentação</a>
+    </div>
+</div>
+{% endblock %}

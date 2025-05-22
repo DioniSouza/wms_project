@@ -1,0 +1,54 @@
+{% extends "base.html" %}
+
+{% block title %}Registrar Movimentação{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+    <h2>Registrar Nova Movimentação</h2>
+
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            {% for category, message in messages %}
+            <div class="alert alert-{{ category }} alert-dismissible fade show" role="alert">
+                {{ message }}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+            {% endfor %}
+        {% endif %}
+    {% endwith %}
+
+    <form method="POST" action="{{ url_for('adicionar_movimentacao') }}">
+        <div class="mb-3">
+            <label for="item_estoque_id" class="form-label">Item de Estoque:</label>
+            <select class="form-select" id="item_estoque_id" name="item_estoque_id" required>
+                <option value="">Selecione um Item de Estoque</option>
+                {% for item in itens_estoque %}
+                <option value="{{ item.id }}" {% if item.id == item_estoque_id|int %}selected{% endif %}>
+                    Produto: {{ item.produto_nome }} | Endereço: {{ item.endereco }} | Lote: {{ item.lote }} | Qtd Atual: {{ item.quantidade }}
+                </option>
+                {% endfor %}
+            </select>
+            {% if not itens_estoque %}
+            <small class="form-text text-muted">Nenhum item em estoque cadastrado. <a href="{{ url_for('adicionar_item_estoque') }}">Adicione um item ao estoque primeiro.</a></small>
+            {% endif %}
+        </div>
+
+        <div class="mb-3">
+            <label for="tipo_movimentacao" class="form-label">Tipo de Movimentação:</label>
+            <select class="form-select" id="tipo_movimentacao" name="tipo_movimentacao" required>
+                <option value="">Selecione o Tipo</option>
+                <option value="ENTRADA" {% if tipo_movimentacao == 'ENTRADA' %}selected{% endif %}>ENTRADA</option>
+                <option value="SAIDA" {% if tipo_movimentacao == 'SAIDA' %}selected{% endif %}>SAÍDA</option>
+            </select>
+        </div>
+
+        <div class="mb-3">
+            <label for="quantidade" class="form-label">Quantidade:</label>
+            <input type="number" class="form-control" id="quantidade" name="quantidade" value="{{ quantidade if quantidade else '' }}" min="1" required>
+        </div>
+
+        <button type="submit" class="btn btn-primary">Registrar Movimentação</button>
+        <a href="{{ url_for('listar_movimentacoes') }}" class="btn btn-secondary">Cancelar</a>
+    </form>
+</div>
+{% endblock %}
